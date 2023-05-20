@@ -45,6 +45,10 @@ $ yarn dev
 $ yarn start:prod
 ```
 
+## Documentation
+
+You can visit [`http://localhost:3001/docs`](http://localhost:3001/docs) to see the documentation but make sure the run the app first using `yarn start` or `yarn dev`.
+
 ## Test
 
 ```bash
@@ -57,10 +61,6 @@ $ yarn test:e2e
 # test coverage
 $ yarn test:cov
 ```
-
-## Documentation
-
-You can visit [`http://localhost:3001/docs`](http://localhost:3001/docs) to see the documentation but make sure the run the app first using `yarn start` or `yarn dev`.
 
 ## Support
 
