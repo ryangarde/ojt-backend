@@ -60,7 +60,7 @@ $ yarn test:cov
 
 ## Documentation
 
-You can visit `/docs` to see the documentation
+You can visit [`http://localhost:3001/docs`](http://localhost:3001/docs) to see the documentation
 
 ## Support
 
