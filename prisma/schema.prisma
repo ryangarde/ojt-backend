@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Role {
+  id         Int      @id @default(autoincrement())
+  name       String
+  user       User[]
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  email      String   @unique
+  name       String
+  password   String
+  role_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  role       Role     @relation(fields: [role_id], references: [id])
+  carts      Cart[]
+}
+
+model Item {
+  id          Int         @id @default(autoincrement())
+  category_id Int
+  name        String
+  price       String      @default("0")
+  description String?     @db.Text
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @default(now())
+  images      ItemImage[]
+  category    Category    @relation(fields: [category_id], references: [id])
+  carts       CartItem[]
+}
+
+model Category {
+  id         Int      @id @default(autoincrement())
+  name       String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  items      Item[]
+}
+
+model ItemImage {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.Text
+  item       Item     @relation(fields: [item_id], references: [id], onDelete: Cascade)
+  item_id    Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  @@map("item_images")
+}
+
+model Cart {
+  id         Int        @id @default(autoincrement())
+  user_id    Int
+  created_at DateTime   @default(now())
+  updated_at DateTime   @default(now())
+  user       User       @relation(fields: [user_id], references: [id])
+  items      CartItem[]
+}
+
+model CartItem {
+  cart_id Int
+  item_id Int
+  cart    Cart @relation(fields: [cart_id], references: [id])
+  item    Item @relation(fields: [item_id], references: [id])
+
+  @@id([cart_id, item_id])
+  @@map("cart_items")
+}
