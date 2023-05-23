@@ -7,6 +7,8 @@ import { RedocModule } from 'nestjs-redoc';
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+	app.enableCors();
+
 	app.setGlobalPrefix('api');
 	// app.useStaticAssets(join(__dirname, '../..', 'public'));
 	app.useStaticAssets('public', {
